@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Geradezu</string>
+    <string name="progress_text">%.1f km / %d km</string>
+    <string name="add_workout">Training hinzufügen</string>
+</resources>

@@ -1,0 +1,13 @@
+# TODO
+- start challenge
+    - goal=1000km
+    - startdate=now
+    - enddate=now+1y
+    - store in shared pref
+- show current distance + goal
+    - show "calendar" view (one box for each day, green if workout was done, (now - startdate) boxes are shown), horizontal scrollview
+- add workouts
+    - manual
+    - via map recording
+- share current screen
+    - group challenge (invite to challenge)
