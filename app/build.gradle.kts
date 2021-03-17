@@ -7,6 +7,9 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+group = "de.heilsen.virtuallychallenging"
+version = "0.1"
+
 android {
     compileSdkVersion(30)
     buildToolsVersion("30.0.3")
