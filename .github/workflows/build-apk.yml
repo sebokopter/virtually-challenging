@@ -3,13 +3,17 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ENCRYPTED_FILES_PASSPHRASE: ${{ secrets.ENCRYPTED_FILES_PASSPHRASE }}
+      KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
       - name: Decrypt google-services.json
-        run: gpg --batch --decrypt --passphrase="$GOOGLE_SERVICES_PASSPHRASE" --output app/google-services.json app/google-services.json.gpg
-        env:
-          GOOGLE_SERVICES_PASSPHRASE: ${{ secrets.GOOGLE_SERVICES_PASSPHRASE }}
+        run: gpg --batch --decrypt --passphrase="$ENCRYPTED_FILES_PASSPHRASE" --output app/google-services.json app/google-services.json.gpg
+      - name: Decrypt keystore
+        run: gpg --batch --decrypt --passphrase="$ENCRYPTED_FILES_PASSPHRASE" --output app/virtually-challenging-keystore.jks app/virtually-challenging-keystore.jks.gpg
       - name: Build the APK
         run: ./gradlew assemble
       - name: Release the APK

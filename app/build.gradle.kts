@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -26,6 +27,15 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    signingConfigs {
+        register("appSigning") {
+            storeFile(file("virtually-challenging-keystore.jks"))
+            storePassword(System.getenv("STORE_PASSWORD"))
+            keyAlias("app-signing-key")
+            keyPassword(System.getenv("KEY_PASSWORD"))
+        }
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
@@ -33,6 +43,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 file("proguard-rules.pro")
             )
+            signingConfig = signingConfigs.named("appSigning").get()
         }
         getByName("debug") {
             isMinifyEnabled = true
@@ -78,10 +89,11 @@ android {
         resValues = false
         shaders = false
     }
+
 }
 
 dependencies {
-    implementation("androidx.activity:activity-ktx:1.2.0")
+    implementation("androidx.activity:activity-ktx:1.2.1")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.core:core-ktx:1.3.2")
