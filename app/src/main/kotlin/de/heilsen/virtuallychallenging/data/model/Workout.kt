@@ -5,6 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Workout(
-    @PrimaryKey(autoGenerate = true) var id: Int,
     val distance: Float
-)
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
+}

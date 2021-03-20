@@ -4,7 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import de.heilsen.virtuallychallenging.R
-import de.heilsen.virtuallychallenging.domain.model.Workout
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class SharedPreferencesWorkoutRepository(private val sharedPref: SharedPreferences) :
     WorkoutRepository {
@@ -19,11 +20,11 @@ class SharedPreferencesWorkoutRepository(private val sharedPref: SharedPreferenc
         const val CURRENT = "current"
     }
 
-    override fun get(): Float {
-        return sharedPref.getFloat(PREF.CURRENT, 0.0f)
+    override suspend fun get(): Float = withContext(Dispatchers.IO) {
+        return@withContext sharedPref.getFloat(PREF.CURRENT, 0.0f)
     }
 
-    override fun add(distance: Float) {
+    override suspend fun add(distance: Float) = withContext(Dispatchers.IO) {
         val current = get()
         sharedPref.edit {
             putFloat(PREF.CURRENT, current + distance)
