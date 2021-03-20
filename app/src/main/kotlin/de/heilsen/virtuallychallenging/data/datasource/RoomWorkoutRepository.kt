@@ -2,20 +2,14 @@ package de.heilsen.virtuallychallenging.data.datasource
 
 import de.heilsen.virtuallychallenging.data.model.Workout
 import de.heilsen.virtuallychallenging.data.model.WorkoutDao
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import java.time.Instant
 
 class RoomWorkoutRepository(private val workoutDao: WorkoutDao) : WorkoutRepository {
-    override suspend fun get(): Float = withContext(Dispatchers.IO) {
-        return@withContext workoutDao.getAll().sumByFloat { it.distance }
-
+    override suspend fun getAll(): Iterable<Workout> {
+        return workoutDao.getAll()
     }
 
-    override suspend fun add(distance: Float) = withContext(Dispatchers.IO) {
-        workoutDao.insert(Workout(distance))
+    override suspend fun add(distance: Float) {
+        workoutDao.insert(Workout(distance, Instant.now()))
     }
-}
-
-fun <T> Iterable<T>.sumByFloat(selector: (T) -> Float): Float {
-    return sumByDouble { selector(it).toDouble() }.toFloat()
 }

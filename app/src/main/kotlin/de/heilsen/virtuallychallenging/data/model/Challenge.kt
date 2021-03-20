@@ -6,6 +6,8 @@ import de.heilsen.virtuallychallenging.domain.model.Distance
 
 @Entity
 data class Challenge(
-    @PrimaryKey(autoGenerate = true) var id: Int,
     val goal: Distance
-)
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
+}

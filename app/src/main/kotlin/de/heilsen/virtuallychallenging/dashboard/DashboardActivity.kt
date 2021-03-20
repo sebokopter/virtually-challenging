@@ -9,7 +9,7 @@ import com.google.android.material.button.MaterialButton
 import de.heilsen.virtuallychallenging.R
 import de.heilsen.virtuallychallenging.domain.model.Workout
 import de.heilsen.virtuallychallenging.domain.model.km
-import de.heilsen.virtuallychallenging.util.sumBy
+import de.heilsen.virtuallychallenging.util.setProgressCompat
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -35,7 +35,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun render(): (DashboardState) -> Unit = { state ->
-        val (current, goal) = state
+        val (current, goal, consecutiveDays) = state
         with(findViewById<TextView>(R.id.progressText)) {
             text = resources.getString(
                 R.string.progress_text,
@@ -43,9 +43,12 @@ class DashboardActivity : AppCompatActivity() {
                 goal
             )
         }
+        with(findViewById<TextView>(R.id.consecutiveDays)) {
+            text = consecutiveDays.toString()
+        }
         with(findViewById<ProgressBar>(R.id.progressIndicator)) {
-            progress = current.toInt()
             max = goal.toInt()
+            setProgressCompat(current, true)
         }
     }
 }

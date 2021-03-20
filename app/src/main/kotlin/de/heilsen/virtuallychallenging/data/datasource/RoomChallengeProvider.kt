@@ -10,7 +10,7 @@ class RoomChallengeProvider(private val challengeDao: ChallengeDao) : ChallengeP
     }
 
     override fun set(challenge: de.heilsen.virtuallychallenging.domain.model.Challenge) {
-        val challengeData = Challenge(0, challenge.goal)
+        val challengeData = Challenge(challenge.goal)
         challengeDao.insert(challengeData)
     }
 }

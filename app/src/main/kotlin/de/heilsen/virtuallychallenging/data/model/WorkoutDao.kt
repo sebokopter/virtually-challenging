@@ -7,8 +7,8 @@ import androidx.room.Query
 @Dao
 interface WorkoutDao {
     @Query("SELECT * FROM workout")
-    fun getAll(): List<Workout>
+    suspend fun getAll(): List<Workout>
 
     @Insert
-    fun insert(workout: Workout)
+    suspend fun insert(workout: Workout)
 }

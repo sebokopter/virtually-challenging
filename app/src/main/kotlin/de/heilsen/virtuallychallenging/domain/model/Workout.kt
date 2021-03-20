@@ -1,3 +1,5 @@
 package de.heilsen.virtuallychallenging.domain.model
 
-data class Workout(val distance: Distance) //TODO: add date
+import java.time.Instant
+
+data class Workout(val distance: Distance, val date: Instant = Instant.now())

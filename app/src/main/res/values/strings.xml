@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Virtually Challenging</string>
     <string name="add_workout">Add Workout</string>
+    <string name="consecutive_days">Consecutive days</string>
 </resources>

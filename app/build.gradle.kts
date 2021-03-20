@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
-import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -25,6 +24,8 @@ android {
         testInstrumentationRunner("androidx.test.runner.AndroidJUnitRunner")
 
         vectorDrawables.useSupportLibrary = true
+
+        multiDexEnabled = true
     }
 
     signingConfigs {
@@ -54,14 +55,18 @@ android {
             )
         }
     }
+
     compileOptions {
+        // Flag to enable support for the new language APIs
+        isCoreLibraryDesugaringEnabled = true
+        // Sets Java compatibility to Java 8
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
-        useIR = true
+        jvmTarget = "1.8" // Jetpack ktx extensions require Java 8
+        useIR = true //opt in to new compiler
     }
 
     sourceSets.all {
@@ -89,10 +94,11 @@ android {
         resValues = false
         shaders = false
     }
-
 }
 
 dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
+
     implementation("androidx.activity:activity-ktx:1.2.1")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
@@ -110,7 +116,7 @@ dependencies {
     val room_version = "2.2.6"
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
-    implementation ("androidx.room:room-ktx:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
 
     testImplementation("junit:junit:4.13.1")
     testImplementation("org.robolectric:robolectric:4.5.1")
