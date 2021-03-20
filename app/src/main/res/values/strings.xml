@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">Virtually Challenging</string>
-    <string name="progress_text">%.1f km / %.1f km</string>
     <string name="add_workout">Add Workout</string>
 </resources>
