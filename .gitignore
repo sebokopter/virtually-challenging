@@ -6,3 +6,4 @@
 .idea
 google-services.json
 local.properties
+keystore.properties

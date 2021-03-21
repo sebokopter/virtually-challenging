@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+import java.util.*
 
 plugins {
     id("com.android.application")
@@ -29,11 +30,14 @@ android {
     }
 
     signingConfigs {
+        val properties = Properties().apply {
+            load(file("keystore.properties").inputStream())
+        }
         register("appSigning") {
             storeFile(file("virtually-challenging-keystore.jks"))
-            storePassword(System.getenv("STORE_PASSWORD"))
+            storePassword(properties.getProperty("storePassword"))
             keyAlias("app-signing-key")
-            keyPassword(System.getenv("KEY_PASSWORD"))
+            keyPassword(properties.getProperty("keyPassword"))
         }
     }
 
