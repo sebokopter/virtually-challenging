@@ -124,7 +124,7 @@ dependencies {
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
 
-    testImplementation("junit:junit:4.13.1")
+    testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.5.1")
     testImplementation("androidx.test.ext:junit-ktx:1.1.2")
     testImplementation("androidx.test:core-ktx:1.3.0")
