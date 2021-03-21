@@ -60,4 +60,21 @@ class DateProcessorTest {
         assertThat(DateProcessor.consecutiveDays(dates), equalTo(0))
     }
 
+    @Test
+    fun `two workouts on the same day and another one yesterday`() {
+        val first = Instant.now()
+        val second = first
+        val third = first.minus(1, ChronoUnit.DAYS)
+        val dates = listOf<Instant>(first, second, third)
+        assertThat(DateProcessor.consecutiveDays(dates), equalTo(2))
+    }
+
+    @Test
+    fun `first entry is yesterday`() {
+        val today = Instant.now()
+        val yesterday = today.minus(1, ChronoUnit.DAYS)
+        val dates = listOf<Instant>(yesterday, today)
+        assertThat(DateProcessor.consecutiveDays(dates), equalTo(2))
+    }
+
 }

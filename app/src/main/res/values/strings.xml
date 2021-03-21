@@ -2,4 +2,6 @@
     <string name="app_name">Virtually Challenging</string>
     <string name="add_workout">Add Workout</string>
     <string name="consecutive_days">Consecutive days</string>
+    <string name="distance">Distance (km)</string>
+    <string name="date">Date</string>
 </resources>

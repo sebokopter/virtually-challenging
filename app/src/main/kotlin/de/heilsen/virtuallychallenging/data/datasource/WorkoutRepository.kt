@@ -1,8 +1,11 @@
 package de.heilsen.virtuallychallenging.data.datasource
 
 import de.heilsen.virtuallychallenging.data.model.Workout
+import kotlinx.coroutines.flow.Flow
 
 interface WorkoutRepository {
-    suspend fun getAll(): Iterable<Workout>
-    suspend fun add(distance: Float)
+    fun workouts(): Flow<List<Workout>>
+    suspend fun add(workout: Workout)
+    fun totalDistance(): Flow<Float>
+    fun consecutiveDays(): Flow<Int>
 }

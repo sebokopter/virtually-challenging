@@ -2,4 +2,6 @@
     <string name="app_name">Geradezu</string>
     <string name="add_workout">Training hinzufügen</string>
     <string name="consecutive_days">Tage hintereinander</string>
+    <string name="distance">Distanz (km)</string>
+    <string name="date">Datum</string>
 </resources>

@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="preference_challenge">preference_challenge</string>
-    <string name="preference_workout">preference_workout</string>
     <string name="progress_text">%.1f km / %.1f km</string>
 </resources>
