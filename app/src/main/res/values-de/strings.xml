@@ -4,4 +4,5 @@
     <string name="consecutive_days">Tage hintereinander</string>
     <string name="distance">Distanz (km)</string>
     <string name="date">Datum</string>
+    <string name="no_distance">Distanz fehlt</string>
 </resources>
