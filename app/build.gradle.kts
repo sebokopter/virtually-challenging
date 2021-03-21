@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "de.heilsen.virtuallychallenging"
-version = "0.2"
+version = "0.3"
 
 android {
     compileSdkVersion(30)
@@ -18,7 +18,7 @@ android {
         applicationId("de.heilsen.virtuallychallenging")
         minSdkVersion(16)
         targetSdkVersion(30)
-        versionCode(2)
+        versionCode(3)
         versionName(project.version as String)
 
         testInstrumentationRunner("androidx.test.runner.AndroidJUnitRunner")
