@@ -5,7 +5,6 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt") // because of room
-    id("com.google.gms.google-services")
 }
 
 group = "de.heilsen.virtuallychallenging"
@@ -112,12 +111,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.0")
 
     implementation("com.google.android.material:material:1.3.0")
-
-    implementation(platform("com.google.firebase:firebase-bom:26.5.0"))
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-firestore-ktx")
-
-    implementation("com.firebaseui:firebase-ui-auth:6.4.0")
 
     val roomVersion = "2.2.6"
     implementation("androidx.room:room-runtime:$roomVersion")
