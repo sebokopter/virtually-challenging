@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="progress_text">%.1f km / %.1f km</string>
+    <string name="progress_text">%1$.1f km / %2.1f km</string>
 </resources>
