@@ -50,7 +50,7 @@ android {
             signingConfig = signingConfigs.named("appSigning").get()
         }
         getByName("debug") {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles = mutableListOf(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 file("proguard-rules.pro"),
@@ -123,7 +123,7 @@ dependencies {
     testImplementation("androidx.test:core-ktx:1.3.0")
     testImplementation("org.mockito:mockito-core:3.7.7")
 
-    androidTestImplementation("androidx.test.ext:junit:1.1.2")
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
     androidTestImplementation("org.mockito:mockito-android:3.7.7")
 }

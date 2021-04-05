@@ -1,29 +1,30 @@
-package de.heilsen.virtuallychallenging.dashboard
+package de.heilsen.virtuallychallenging.domain
 
 import org.hamcrest.CoreMatchers.equalTo
-import org.junit.Assert.assertThat
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 import java.time.Instant
+import java.time.Period
 import java.time.temporal.ChronoUnit
 
 //TODO: don't use Instant.now()
-class DateProcessorTest {
+class ConsecutiveDaysTest {
     @Test
     fun `no dates returns 0`() {
         val dates = listOf<Instant>()
-        assertThat(DateProcessor.consecutiveDays(dates), equalTo(0))
+        assertThat(dates.consecutiveDays(), equalTo(Period.ZERO))
     }
 
     @Test
     fun `single today returns 1`() {
         val dates = listOf<Instant>(Instant.now())
-        assertThat(DateProcessor.consecutiveDays(dates), equalTo(1))
+        assertThat(dates.consecutiveDays(), equalTo(Period.ofDays(1)))
     }
 
     @Test
     fun `single day (not-today) returns 0`() {
         val dates = listOf<Instant>(Instant.MIN)
-        assertThat(DateProcessor.consecutiveDays(dates), equalTo(0))
+        assertThat(dates.consecutiveDays(), equalTo(Period.ZERO))
     }
 
     @Test
@@ -31,7 +32,7 @@ class DateProcessorTest {
         val today = Instant.now()
         val yesterday = today.minus(1, ChronoUnit.DAYS)
         val dates = listOf<Instant>(today, yesterday)
-        assertThat(DateProcessor.consecutiveDays(dates), equalTo(2))
+        assertThat(dates.consecutiveDays(), equalTo(Period.ofDays(2)))
     }
 
     @Test
@@ -39,7 +40,7 @@ class DateProcessorTest {
         val firstDay = Instant.now().minus(10, ChronoUnit.DAYS)
         val secondDay = firstDay.minus(1, ChronoUnit.DAYS)
         val dates = listOf<Instant>(firstDay, secondDay)
-        assertThat(DateProcessor.consecutiveDays(dates), equalTo(0))
+        assertThat(dates.consecutiveDays(), equalTo(Period.ZERO))
     }
 
     @Test
@@ -48,7 +49,7 @@ class DateProcessorTest {
         val yesterday = today.minus(1, ChronoUnit.DAYS)
         val dayBeforeYesterday = yesterday.minus(1, ChronoUnit.DAYS)
         val dates = listOf<Instant>(today, yesterday, dayBeforeYesterday)
-        assertThat(DateProcessor.consecutiveDays(dates), equalTo(3))
+        assertThat(dates.consecutiveDays(), equalTo(Period.ofDays(3)))
     }
 
     @Test
@@ -57,7 +58,7 @@ class DateProcessorTest {
         val secondDay = firstDay.minus(1, ChronoUnit.DAYS)
         val thirdDay = secondDay.minus(1, ChronoUnit.DAYS)
         val dates = listOf<Instant>(firstDay, secondDay, thirdDay)
-        assertThat(DateProcessor.consecutiveDays(dates), equalTo(0))
+        assertThat(dates.consecutiveDays(), equalTo(Period.ZERO))
     }
 
     @Test
@@ -66,7 +67,7 @@ class DateProcessorTest {
         val second = first
         val third = first.minus(1, ChronoUnit.DAYS)
         val dates = listOf<Instant>(first, second, third)
-        assertThat(DateProcessor.consecutiveDays(dates), equalTo(2))
+        assertThat(dates.consecutiveDays(), equalTo(Period.ofDays(2)))
     }
 
     @Test
@@ -74,7 +75,7 @@ class DateProcessorTest {
         val today = Instant.now()
         val yesterday = today.minus(1, ChronoUnit.DAYS)
         val dates = listOf<Instant>(yesterday, today)
-        assertThat(DateProcessor.consecutiveDays(dates), equalTo(2))
+        assertThat(dates.consecutiveDays(), equalTo(Period.ofDays(2)))
     }
 
 }

@@ -32,10 +32,10 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun observe(viewModel: DashboardViewModel) {
-        viewModel.uiStateLiveData.observe(this@DashboardActivity, render())
+        viewModel.model().observe(this@DashboardActivity, render())
     }
 
-    private fun render(): (DashboardUiState) -> Unit = { state ->
+    private fun render(): (DashboardModel) -> Unit = { state ->
         val (current, goal, consecutiveDays) = state
         with(findViewById<TextView>(R.id.progressText)) {
             text = resources.getString(

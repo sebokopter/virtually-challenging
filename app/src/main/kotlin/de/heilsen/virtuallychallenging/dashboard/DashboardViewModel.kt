@@ -8,12 +8,14 @@ import androidx.lifecycle.viewModelScope
 import de.heilsen.virtuallychallenging.data.DashboardDatabase
 import de.heilsen.virtuallychallenging.data.datasource.RoomWorkoutRepository
 import de.heilsen.virtuallychallenging.data.model.Workout
+import de.heilsen.virtuallychallenging.domain.consecutiveDays
 import de.heilsen.virtuallychallenging.domain.model.km
+import de.heilsen.virtuallychallenging.util.sumByFloat
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.ZoneId
 
 class DashboardViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -22,28 +24,31 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         RoomWorkoutRepository(workoutDao)
     }
 
-    var uiStateLiveData: LiveData<DashboardUiState> = uiState()
-
     fun dispatch(action: DashboardAction) = viewModelScope.launch(Dispatchers.IO) {
         when (action) {
             is DashboardAction.AddWorkout -> {
                 withContext(Dispatchers.Main.immediate) {
-                    workoutRepository.add(Workout(action.workout.distance, action.workout.date))
+                    val instant = action.workout.date.atZone(ZoneId.systemDefault()).toInstant()
+                    val workout = Workout(action.workout.distance, instant)
+                    workoutRepository.add(workout)
                 }
             }
         }
     }
 
-
-    private fun uiState(): LiveData<DashboardUiState> {
+    fun model(): LiveData<DashboardModel> {
         val challenge = 1000.km
-        val distanceCovered = workoutRepository.totalDistance().flowOn(Dispatchers.IO)
-        val consecutiveDays = workoutRepository.consecutiveDays().flowOn(Dispatchers.IO)
-        val stateFlow = distanceCovered.combine(consecutiveDays) { distance, days ->
-            DashboardUiState(
-                distance, challenge, days
-            )
-        }
-        return stateFlow.asLiveData(viewModelScope.coroutineContext)
+        return workoutRepository.workouts().map { workouts ->
+            val consecutiveDays = consecutiveDays(workouts)
+            val distance = workouts.sumDistance()
+            DashboardModel(distance, challenge, consecutiveDays)
+        }.asLiveData(viewModelScope.coroutineContext)
     }
+
+    private fun consecutiveDays(workouts: List<Workout>): Int {
+        val dates = workouts.map { it.date }
+        return dates.consecutiveDays().days
+    }
+
+    private fun List<Workout>.sumDistance(): Float = sumByFloat { workout -> workout.distance }
 }

@@ -5,12 +5,12 @@ import java.time.Instant
 
 class JavaTimeConverter {
     @TypeConverter
-    fun fromTimestamp(value: Long?): Instant? {
-        return value?.let { Instant.ofEpochMilli(it) }
+    fun fromTimestamp(value: String): Instant {
+        return Instant.parse(value)
     }
 
     @TypeConverter
-    fun dateToTimestamp(date: Instant?): Long? {
-        return date?.toEpochMilli()
+    fun dateToTimestamp(date: Instant): String {
+        return date.toString()
     }
 }

@@ -18,11 +18,11 @@ import de.heilsen.virtuallychallenging.R
 import de.heilsen.virtuallychallenging.dashboard.DashboardAction
 import de.heilsen.virtuallychallenging.dashboard.DashboardViewModel
 import de.heilsen.virtuallychallenging.domain.model.Workout
-import de.heilsen.virtuallychallenging.util.asLocalDate
 import de.heilsen.virtuallychallenging.util.doAfterFocus
 import de.heilsen.virtuallychallenging.util.show
 import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
@@ -46,7 +46,7 @@ class WorkoutFormFragment : BottomSheetDialogFragment() {
         val dateContainer = view.findViewById<TextInputLayout>(R.id.date_container)
         val addButton = view.findViewById<Button>(R.id.add_button)
 
-        dateField.setText(Instant.now().asLocalDate())
+        dateField.setText(Instant.now().toLocalDateString())
 
         val datePicker = MaterialDatePicker.Builder.datePicker()
             .setTitleText("Select date")
@@ -54,7 +54,7 @@ class WorkoutFormFragment : BottomSheetDialogFragment() {
             .build()
             .apply {
                 addOnPositiveButtonClickListener { epochMilli ->
-                    val localDate = Instant.ofEpochMilli(epochMilli).asLocalDate()
+                    val localDate = Instant.ofEpochMilli(epochMilli).toLocalDateString()
                     dateField.setText(localDate)
                 }
             }
@@ -68,7 +68,7 @@ class WorkoutFormFragment : BottomSheetDialogFragment() {
         distanceField.doAfterTextChanged { distanceContainer.isErrorEnabled = false }
         distanceField.doAfterFocus { distanceContainer.isErrorEnabled = false }
 
-        dateField.setOnEditorActionListener { textView, actionId, keyEvent ->
+        dateField.setOnEditorActionListener { textView, actionId, _ ->
             if (actionId != EditorInfo.IME_ACTION_DONE) return@setOnEditorActionListener false
             val imm: InputMethodManager =
                 textView.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -89,9 +89,17 @@ class WorkoutFormFragment : BottomSheetDialogFragment() {
             distanceContainer.error = getString(R.string.no_distance)
             return
         }
-        val date = LocalDate.parse(dateField.text.toString(), DateTimeFormatter.ISO_LOCAL_DATE)
-        val instant = date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()
-        viewModel.dispatch(DashboardAction.AddWorkout(Workout(distance, instant)))
+        val localDate = dateField.text.asLocalDateTime()
+        viewModel.dispatch(DashboardAction.AddWorkout(Workout(distance, localDate)))
         dismiss()
     }
+}
+
+fun Instant.toLocalDateString(): String {
+    return atZone(ZoneId.systemDefault()).toLocalDate().format(DateTimeFormatter.ISO_LOCAL_DATE)
+        ?: ""
+}
+
+fun CharSequence.asLocalDateTime(): LocalDateTime {
+    return LocalDate.parse(this, DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay()
 }
