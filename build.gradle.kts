@@ -20,6 +20,11 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        jcenter {
+            content {
+                includeModule("org.jetbrains.trove4j", "trove4j")
+            }
+        }
     }
 }
 
