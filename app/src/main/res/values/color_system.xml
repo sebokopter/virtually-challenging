@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary_900">#00661c</color>
-    <color name="primary_800">#008531</color>
-    <color name="primary_700">#00963C</color>
-    <color name="primary_600">#16a848</color>
-    <color name="primary_500">#22b851</color>
-    <color name="primary_400">#4ec36c</color>
-    <color name="primary_300">#72ce86</color>
-    <color name="primary_200">#9cdba9</color>
-    <color name="primary_100">#c3e9cb</color>
-    <color name="primary_50">#e6f6ea</color>
+    <color name="primary_900">#1b5e20</color>
+    <color name="primary_800">#2e7d32</color>
+    <color name="primary_700">#388e3c</color>
+    <color name="primary_600">#43a047</color>
+    <color name="primary_500">#4caf50</color>
+    <color name="primary_400">#66bb6a</color>
+    <color name="primary_300">#81c784</color>
+    <color name="primary_200">#a5d6a7</color>
+    <color name="primary_100">#c8e6c9</color>
+    <color name="primary_50">#e8f5e9</color>
 
-    <color name="secondary_900">#311b92</color>
-    <color name="secondary_800">#4527a0</color>
-    <color name="secondary_700">#512da8</color>
-    <color name="secondary_600">#512da8</color>
-    <color name="secondary_500">#673ab7</color>
-    <color name="secondary_400">#7e57c2</color>
-    <color name="secondary_300">#9575cd</color>
-    <color name="secondary_200">#b39ddb</color>
-    <color name="secondary_100">#d1c4e9</color>
-    <color name="secondary_50">#ede7f6</color>
+    <color name="secondary_900">#e65200</color>
+    <color name="secondary_800">#ef6d00</color>
+    <color name="secondary_700">#f57d00</color>
+    <color name="secondary_600">#fb8d00</color>
+    <color name="secondary_500">#ff9900</color>
+    <color name="secondary_400">#ffa826</color>
+    <color name="secondary_300">#ffb84d</color>
+    <color name="secondary_200">#ffcd80</color>
+    <color name="secondary_100">#ffe0b2</color>
+    <color name="secondary_50">#fff3e0</color>
 
     <color name="grey_900">#212121</color>
     <color name="grey_800">#424242</color>
