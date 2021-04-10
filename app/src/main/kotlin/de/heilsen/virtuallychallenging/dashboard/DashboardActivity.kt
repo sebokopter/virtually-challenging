@@ -38,11 +38,10 @@ class DashboardActivity : AppCompatActivity() {
     private fun render(): (DashboardModel) -> Unit = { state ->
         val (current, goal, consecutiveDays) = state
         with(findViewById<TextView>(R.id.progressText)) {
-            text = resources.getString(
-                R.string.progress_text,
-                current,
-                goal
-            )
+            text = resources.getString(R.string.float_km, current)
+        }
+        with(findViewById<TextView>(R.id.goalText)) {
+            text = resources.getString(R.string.int_km, goal.toInt())
         }
         with(findViewById<TextView>(R.id.consecutiveDays)) {
             text = consecutiveDays.toString()
