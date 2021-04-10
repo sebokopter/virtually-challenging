@@ -14,6 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/distance"
+        app:suffixText="km"
         app:layout_constraintBottom_toTopOf="@id/date_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
+            tools:text="10.5"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
