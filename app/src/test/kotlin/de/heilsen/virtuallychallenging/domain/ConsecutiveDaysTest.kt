@@ -63,10 +63,9 @@ class ConsecutiveDaysTest {
 
     @Test
     fun `two workouts on the same day and another one yesterday`() {
-        val first = Instant.now()
-        val second = first
-        val third = first.minus(1, ChronoUnit.DAYS)
-        val dates = listOf<Instant>(first, second, third)
+        val firstDay = Instant.now()
+        val yesterday = firstDay.minus(1, ChronoUnit.DAYS)
+        val dates = listOf<Instant>(firstDay, firstDay, yesterday)
         assertThat(dates.consecutiveDays(), equalTo(Period.ofDays(2)))
     }
 
