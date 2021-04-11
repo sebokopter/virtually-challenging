@@ -55,8 +55,12 @@ android {
             )
             signingConfig = signingConfigs.named("appSigning").get()
         }
+        register("releasePlaystore") {
+            initWith(getByName("release"))
+            signingConfig = signingConfigs.named("upload").get()
+        }
         getByName("debug") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles = mutableListOf(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 file("proguard-rules.pro"),
