@@ -22,7 +22,7 @@ jobs:
           name: Artifacts
           path: |
             app/build/outputs/apk/**/*.apk
-            app/build/outputs/aab/**/*.aab
+            app/build/outputs/bundle/**/*.aab
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
         with:
