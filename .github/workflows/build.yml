@@ -1,4 +1,4 @@
-name: Build APK
+name: Build and Publish
 on: push
 jobs:
   build:
@@ -23,3 +23,10 @@ jobs:
           path: |
             app/build/outputs/apk/**/*.apk
             app/build/outputs/aab/**/*.aab
+      - name: Create Github Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: app/build/outputs/apk/release/app-release.apk
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
