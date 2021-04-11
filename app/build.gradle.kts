@@ -36,7 +36,13 @@ android {
             storeFile(file("virtually-challenging-keystore.jks"))
             storePassword(properties.getProperty("storePassword"))
             keyAlias("app-signing-key")
-            keyPassword(properties.getProperty("keyPassword"))
+            keyPassword(properties.getProperty("appSigningKeyPassword"))
+        }
+        register("upload") {
+            storeFile(file("virtually-challenging-keystore.jks"))
+            storePassword(properties.getProperty("storePassword"))
+            keyAlias("upload-key")
+            keyPassword(properties.getProperty("uploadKeyPassword"))
         }
     }
 
