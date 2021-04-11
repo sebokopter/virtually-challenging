@@ -1,16 +1,13 @@
 package de.heilsen.virtuallychallenging.domain
 
-import java.time.Instant
-import java.time.LocalDate
-import java.time.Period
-import java.time.ZoneId
+import java.time.*
 import java.time.temporal.ChronoUnit
 
-fun Collection<Instant>.consecutiveDays(
+fun Collection<LocalDateTime>.consecutiveDays(
     startInstant: Instant = Instant.now(),
     zoneId: ZoneId = ZoneId.systemDefault()
 ): Period {
-    return map { it.atZone(zoneId).toLocalDate() }
+    return map { it.toLocalDate() }
         .consecutiveDays(startInstant.atZone(zoneId).toLocalDate())
 }
 

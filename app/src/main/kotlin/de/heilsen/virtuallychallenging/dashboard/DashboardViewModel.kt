@@ -7,15 +7,14 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import de.heilsen.virtuallychallenging.data.DashboardDatabase
 import de.heilsen.virtuallychallenging.data.datasource.RoomWorkoutRepository
-import de.heilsen.virtuallychallenging.data.model.Workout
 import de.heilsen.virtuallychallenging.domain.consecutiveDays
+import de.heilsen.virtuallychallenging.domain.model.Workout
 import de.heilsen.virtuallychallenging.domain.model.km
 import de.heilsen.virtuallychallenging.util.sumByFloat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.ZoneId
 
 class DashboardViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -28,9 +27,9 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         when (action) {
             is DashboardAction.AddWorkout -> {
                 withContext(Dispatchers.Main.immediate) {
-                    val instant = action.workout.date.atZone(ZoneId.systemDefault()).toInstant()
-                    val workout = Workout(action.workout.distance, instant)
-                    workoutRepository.add(workout)
+                    workoutRepository.add(
+                        Workout(action.workout.distance, action.workout.date)
+                    )
                 }
             }
         }

@@ -1,6 +1,6 @@
 package de.heilsen.virtuallychallenging.data.datasource
 
-import de.heilsen.virtuallychallenging.data.model.Workout
+import de.heilsen.virtuallychallenging.domain.model.Workout
 import kotlinx.coroutines.flow.Flow
 
 interface WorkoutRepository {

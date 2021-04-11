@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Widget.Toolbar" parent="Widget.MaterialComponents.Toolbar">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.Toolbar</item>
+    <style name="Widget.MaterialComponents.Toolbar.PrimarySurface.ThemeOverlayFix">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MaterialComponents.Toolbar.Primary
+        </item>
     </style>
+
 </resources>

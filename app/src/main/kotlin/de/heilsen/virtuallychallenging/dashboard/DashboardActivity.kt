@@ -1,12 +1,16 @@
 package de.heilsen.virtuallychallenging.dashboard
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import de.heilsen.virtuallychallenging.R
+import de.heilsen.virtuallychallenging.profile.ProfileActivity
 import de.heilsen.virtuallychallenging.util.setProgressCompat
 import de.heilsen.virtuallychallenging.util.show
 import de.heilsen.virtuallychallenging.workoutform.WorkoutFormFragment
@@ -50,5 +54,25 @@ class DashboardActivity : AppCompatActivity() {
             max = goal.toInt()
             setProgressCompat(current, true)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.dashboard_options_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.option_profile -> {
+                showProfile()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showProfile() {
+        val intent = Intent(this, ProfileActivity::class.java)
+        startActivity(intent)
     }
 }

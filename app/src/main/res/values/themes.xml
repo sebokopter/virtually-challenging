@@ -8,7 +8,9 @@
         <item name="colorSecondaryVariant">@color/secondary_700</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <item name="toolbarStyle">@style/Theme.Widget.Toolbar</item>
+        <item name="toolbarStyle">
+            @style/Widget.MaterialComponents.Toolbar.PrimarySurface.ThemeOverlayFix
+        </item>
     </style>
 
 </resources>
