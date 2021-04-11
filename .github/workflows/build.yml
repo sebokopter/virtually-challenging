@@ -17,7 +17,7 @@ jobs:
       - name: Build
         run: ./gradlew assemble
       - name: Upload Artifact
-          uses: actions/upload-artifact@v2
-          with:
-            name: APKs
-            path: app/build/outputs/apk/**/*.apk
+        uses: actions/upload-artifact@v2
+        with:
+          name: APKs
+          path: app/build/outputs/apk/**/*.apk
