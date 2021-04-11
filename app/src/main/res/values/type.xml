@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TextAppearance.VirtuallyChallenging.Dashboard.Value" parent="TextAppearance.MaterialComponents.Headline5">
+    <style name="TextAppearance.VirtuallyChallenging.Dashboard.Value" parent="TextAppearance.MaterialComponents.Headline6" />
 
-    </style>
-
-    <style name="TextAppearance.VirtuallyChallenging.Dashboard.Description" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="android:textColor">?colorControlNormal</item>
-        <item name="drawableTint">?colorControlNormal</item>
-    </style>
+    <style name="TextAppearance.VirtuallyChallenging.Dashboard.Description" parent="TextAppearance.MaterialComponents.Caption" />
 </resources>

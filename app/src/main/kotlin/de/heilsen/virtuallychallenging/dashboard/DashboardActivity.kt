@@ -40,7 +40,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun render(): (DashboardModel) -> Unit = { state ->
-        val (current, goal, consecutiveDays) = state
+        val (current, goal, consecutiveDays, workouts) = state
         with(findViewById<TextView>(R.id.progressText)) {
             text = resources.getString(R.string.float_km, current)
         }
@@ -49,6 +49,9 @@ class DashboardActivity : AppCompatActivity() {
         }
         with(findViewById<TextView>(R.id.consecutiveDays)) {
             text = consecutiveDays.toString()
+        }
+        with(findViewById<TextView>(R.id.totalWorkouts)) {
+            text = workouts.toString()
         }
         with(findViewById<ProgressBar>(R.id.progressIndicator)) {
             max = goal.toInt()

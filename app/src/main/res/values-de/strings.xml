@@ -6,4 +6,5 @@
     <string name="date">Datum</string>
     <string name="no_distance">Distanz fehlt</string>
     <string name="profile">Profil</string>
+    <string name="totalWorkouts">Aktivitäten</string>
 </resources>

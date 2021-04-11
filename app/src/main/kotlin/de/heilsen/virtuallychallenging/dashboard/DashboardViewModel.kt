@@ -40,7 +40,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         return workoutRepository.workouts().map { workouts ->
             val consecutiveDays = consecutiveDays(workouts)
             val distance = workouts.sumDistance()
-            DashboardModel(distance, challenge, consecutiveDays)
+            DashboardModel(distance, challenge, consecutiveDays, workouts.size)
         }.asLiveData(viewModelScope.coroutineContext)
     }
 

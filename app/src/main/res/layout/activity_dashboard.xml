@@ -15,28 +15,6 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/consecutiveDays"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:textAppearance="@style/TextAppearance.VirtuallyChallenging.Dashboard.Value"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="12"
-            />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/consecutive_days"
-            android:textAppearance="@style/TextAppearance.VirtuallyChallenging.Dashboard.Description"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/consecutiveDays"
-            />
-
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressIndicator"
             android:layout_width="wrap_content"
@@ -44,12 +22,12 @@
             android:indeterminate="false"
             android:scaleX="6"
             android:scaleY="6"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/consecutiveDaysContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:trackCornerRadius="2dp"
             app:trackColor="@color/grey_300"
+            app:trackCornerRadius="2dp"
             app:trackThickness="3dp"
             tools:progress="75"
             />
@@ -60,12 +38,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAppearance="@style/TextAppearance.VirtuallyChallenging.Dashboard.Value"
-            app:layout_constraintBottom_toTopOf="@id/goalText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="1234 km"
+            app:layout_constraintBottom_toBottomOf="@id/progressIndicator"
+            app:layout_constraintEnd_toEndOf="@id/progressIndicator"
+            app:layout_constraintStart_toStartOf="@id/progressIndicator"
+            app:layout_constraintTop_toTopOf="@id/progressIndicator"
+            tools:text="1234.5 km"
             />
 
         <com.google.android.material.textview.MaterialTextView
@@ -74,13 +51,87 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAppearance="@style/TextAppearance.VirtuallyChallenging.Dashboard.Description"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:drawableStartCompat="@drawable/ic_flag_12"
+            app:layout_constraintEnd_toEndOf="@id/progressText"
+            app:layout_constraintStart_toStartOf="@id/progressText"
             app:layout_constraintTop_toBottomOf="@id/progressText"
             tools:text="10000 km"
             />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consecutiveDaysContainer"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/totalWorkoutsContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressIndicator"
+            >
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/consecutiveDays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.VirtuallyChallenging.Dashboard.Value"
+                app:layout_constraintBottom_toTopOf="@id/consecutiveDaysLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="12"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/consecutiveDaysLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/consecutive_days"
+                android:textAppearance="@style/TextAppearance.VirtuallyChallenging.Dashboard.Description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consecutiveDays"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/totalWorkoutsContainer"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/consecutiveDaysContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/consecutiveDaysContainer"
+            app:layout_constraintTop_toTopOf="@+id/consecutiveDaysContainer"
+            >
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/totalWorkouts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.VirtuallyChallenging.Dashboard.Value"
+
+                app:layout_constraintBottom_toTopOf="@id/totalWorkoutsLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="20"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/totalWorkoutsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textAppearance="@style/TextAppearance.VirtuallyChallenging.Dashboard.Description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/totalWorkouts"
+                android:textAlignment="center"
+                app:layout_constraintTop_toBottomOf="@id/totalWorkouts"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
