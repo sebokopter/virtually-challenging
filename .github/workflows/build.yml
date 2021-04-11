@@ -14,10 +14,12 @@ jobs:
         run: gpg --batch --decrypt --passphrase="$ENCRYPTED_FILES_PASSPHRASE" --output app/virtually-challenging-keystore.jks app/virtually-challenging-keystore.jks.gpg
       - name: Decrypt keystore.properties
         run: gpg --batch --decrypt --passphrase="$ENCRYPTED_FILES_PASSPHRASE" --output app/keystore.properties app/keystore.properties.gpg
-      - name: Build
-        run: ./gradlew assemble
-      - name: Upload Artifact
+      - name: Build APK and AAB
+        run: ./gradlew assemble bundle
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: APKs
-          path: app/build/outputs/apk/**/*.apk
+          name: Artifacts
+          path: |
+            app/build/outputs/apk/**/*.apk
+            app/build/outputs/aab/**/*.aab
