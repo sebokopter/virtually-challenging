@@ -1,4 +1,4 @@
-name: Release APK
+name: Build APK
 on: push
 jobs:
   build:
@@ -14,12 +14,10 @@ jobs:
         run: gpg --batch --decrypt --passphrase="$ENCRYPTED_FILES_PASSPHRASE" --output app/virtually-challenging-keystore.jks app/virtually-challenging-keystore.jks.gpg
       - name: Decrypt keystore.properties
         run: gpg --batch --decrypt --passphrase="$ENCRYPTED_FILES_PASSPHRASE" --output app/keystore.properties app/keystore.properties.gpg
-      - name: Build the APK
+      - name: Build
         run: ./gradlew assemble
-      - name: Release the APK
-        uses: softprops/action-gh-release@v1
-        with:
-          files: app/build/outputs/apk/release/app-release.apk
-        if: startsWith(github.ref, 'refs/tags/')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Artifact
+          uses: actions/upload-artifact@v2
+          with:
+            name: APKs
+            path: app/build/outputs/apk/**/*.apk
