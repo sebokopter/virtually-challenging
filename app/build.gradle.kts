@@ -60,7 +60,9 @@ android {
             signingConfig = signingConfigs.named("upload").get()
         }
         getByName("debug") {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
+            isTestCoverageEnabled = false
+
             proguardFiles = mutableListOf(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 file("proguard-rules.pro"),
@@ -112,6 +114,7 @@ android {
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
+    implementation(project(":edittext-compat"))
     implementation("androidx.activity:activity-ktx:1.2.2")
     implementation("androidx.fragment:fragment-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")

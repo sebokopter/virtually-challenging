@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputLayout
+import de.heilsen.compat.edittext.EditTextCompat.fixDigitsKeyListenerLocale
 import de.heilsen.virtuallychallenging.R
 import de.heilsen.virtuallychallenging.dashboard.DashboardAction
 import de.heilsen.virtuallychallenging.dashboard.DashboardViewModel
@@ -41,6 +42,7 @@ class WorkoutFormFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val distanceField = view.findViewById<EditText>(R.id.distance_field)
+        distanceField.fixDigitsKeyListenerLocale()
         val distanceContainer = view.findViewById<TextInputLayout>(R.id.distance_container)
         val dateField = view.findViewById<EditText>(R.id.date_field)
         val dateContainer = view.findViewById<TextInputLayout>(R.id.date_container)
