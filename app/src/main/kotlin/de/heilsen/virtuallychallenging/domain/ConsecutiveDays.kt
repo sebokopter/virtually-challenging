@@ -7,17 +7,29 @@ fun Collection<LocalDateTime>.consecutiveDays(
     startInstant: Instant = Instant.now(),
     zoneId: ZoneId = ZoneId.systemDefault()
 ): Period {
-    return map { it.toLocalDate() }
-        .consecutiveDays(startInstant.atZone(zoneId).toLocalDate())
+    return consecutiveDays(
+        dates = map { it.toLocalDate() },
+        currentDay = startInstant.atZone(zoneId).toLocalDate()
+    )
 }
 
-private fun Collection<LocalDate>.consecutiveDays(
-    start: LocalDate
+private fun consecutiveDays(
+    dates: Collection<LocalDate>,
+    currentDay: LocalDate
 ): Period {
-    if (isEmpty()) return Period.ZERO
-    val dayBefore = start.minus(1, ChronoUnit.DAYS)
+    if (dates.isEmpty()) return Period.ZERO
 
-    if (start !in this) return Period.ZERO
+    val previousDay = currentDay.minus(1, ChronoUnit.DAYS)
 
-    return Period.ofDays(1) + (this - start).consecutiveDays(start = dayBefore)
+    val period: Period = when (currentDay) {
+        !in dates -> Period.ZERO
+        else -> Period.ofDays(1)
+    }
+
+    if (previousDay !in dates) return period
+
+    val datesWithoutCurrent = dates - currentDay
+    val consecutiveDays = consecutiveDays(datesWithoutCurrent, previousDay)
+
+    return period + consecutiveDays
 }
