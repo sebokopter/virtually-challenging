@@ -89,9 +89,9 @@ android {
     }
 
     sourceSets.named("test") {
-        java.srcDirs("src/$name/kotlin", "src/sharedTest/kotlin")
+        java.srcDirs("src/sharedTest/kotlin")
         withConvention(KotlinSourceSet::class) {
-            kotlin.srcDirs("src/$name/kotlin", "src/sharedTest/kotlin")
+            kotlin.srcDirs("src/sharedTest/kotlin")
         }
     }
 

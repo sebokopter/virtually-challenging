@@ -11,6 +11,10 @@ android {
     defaultConfig {
         minSdkVersion(3)
     }
+
+    sourceSets.all {
+        java.srcDirs("src/$name/kotlin")
+    }
 }
 
 repositories {
