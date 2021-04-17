@@ -27,7 +27,6 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-
 class WorkoutFormFragment : BottomSheetDialogFragment() {
 
     private val viewModel by activityViewModels<DashboardViewModel>()
