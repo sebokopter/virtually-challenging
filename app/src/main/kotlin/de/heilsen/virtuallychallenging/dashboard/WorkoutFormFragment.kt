@@ -1,4 +1,4 @@
-package de.heilsen.virtuallychallenging.workoutform
+package de.heilsen.virtuallychallenging.dashboard
 
 import android.content.Context
 import android.os.Bundle
@@ -16,8 +16,6 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputLayout
 import de.heilsen.compat.edittext.EditTextCompat.fixDigitsKeyListenerLocale
 import de.heilsen.virtuallychallenging.R
-import de.heilsen.virtuallychallenging.dashboard.DashboardAction
-import de.heilsen.virtuallychallenging.dashboard.DashboardViewModel
 import de.heilsen.virtuallychallenging.domain.model.Workout
 import de.heilsen.virtuallychallenging.util.doAfterFocus
 import de.heilsen.virtuallychallenging.util.show

@@ -13,7 +13,6 @@ import de.heilsen.virtuallychallenging.R
 import de.heilsen.virtuallychallenging.profile.ProfileActivity
 import de.heilsen.virtuallychallenging.util.setProgressCompat
 import de.heilsen.virtuallychallenging.util.show
-import de.heilsen.virtuallychallenging.workoutform.WorkoutFormFragment
 
 class DashboardActivity : AppCompatActivity() {
 
