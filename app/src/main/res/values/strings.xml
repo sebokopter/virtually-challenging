@@ -4,7 +4,7 @@
     <string name="consecutive_days">Consecutive days</string>
     <string name="distance">Distance</string>
     <string name="date">Date</string>
-    <string name="no_distance">No distance provided</string>
+    <string name="distance_missing">No distance provided</string>
     <string name="profile">Profile</string>
     <string name="totalWorkouts">Total Workouts</string>
 </resources>

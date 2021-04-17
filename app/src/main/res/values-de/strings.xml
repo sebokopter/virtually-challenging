@@ -4,7 +4,7 @@
     <string name="consecutive_days">Tage hintereinander</string>
     <string name="distance">Distanz</string>
     <string name="date">Datum</string>
-    <string name="no_distance">Distanz fehlt</string>
+    <string name="distance_missing">Distanz fehlt</string>
     <string name="profile">Profil</string>
     <string name="totalWorkouts">Aktivitäten</string>
 </resources>

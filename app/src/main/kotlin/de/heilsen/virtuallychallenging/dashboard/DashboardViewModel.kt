@@ -49,5 +49,6 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         return dates.consecutiveDays().days
     }
 
-    private fun List<Workout>.sumDistance(): Float = sumByFloat { workout -> workout.distance }
+    private fun List<Workout>.sumDistance(): Float =
+        sumByFloat { workout -> workout.distance.toFloat() }
 }

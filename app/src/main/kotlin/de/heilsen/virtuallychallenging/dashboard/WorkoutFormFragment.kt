@@ -15,19 +15,28 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputLayout
 import de.heilsen.compat.edittext.EditTextCompat.fixDigitsKeyListenerLocale
+import de.heilsen.compat.edittext.localeCompat
 import de.heilsen.virtuallychallenging.R
 import de.heilsen.virtuallychallenging.domain.model.Workout
 import de.heilsen.virtuallychallenging.util.doAfterFocus
 import de.heilsen.virtuallychallenging.util.show
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class WorkoutFormFragment : BottomSheetDialogFragment() {
 
     private val viewModel by activityViewModels<DashboardViewModel>()
+
+    private val decimalFormat by lazy {
+        val locale = requireContext().resources.configuration.localeCompat
+        DecimalFormat.getInstance(locale)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -82,15 +91,23 @@ class WorkoutFormFragment : BottomSheetDialogFragment() {
         distanceContainer: TextInputLayout,
         dateField: EditText
     ) {
-        val distance = distanceField.text.toString().toFloatOrNull()
+        val distance: Number? = decimalFormat.parseOrNull(distanceField.text.toString())
         if (distance == null) {
             distanceField.requestFocus()
-            distanceContainer.error = getString(R.string.no_distance)
+            distanceContainer.error = getString(R.string.distance_missing)
             return
         }
         val localDate = dateField.text.asLocalDateTime()
         viewModel.dispatch(DashboardAction.AddWorkout(Workout(distance, localDate)))
         dismiss()
+    }
+}
+
+private fun NumberFormat.parseOrNull(string: String): Number? {
+    return try {
+        parse(string)
+    } catch (e: Exception) {
+        null
     }
 }
 

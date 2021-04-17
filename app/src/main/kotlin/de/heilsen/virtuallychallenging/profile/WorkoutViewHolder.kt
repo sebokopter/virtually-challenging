@@ -13,7 +13,8 @@ class WorkoutViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val workoutDistance = itemView.findViewById<TextView>(R.id.workoutDistance)
 
         workoutDate.text = workoutItem.date
-        workoutDistance.text = resources.getString(R.string.float_km, workoutItem.distance)
+        workoutDistance.text =
+            resources.getString(R.string.float_km, workoutItem.distance.toFloat())
     }
 
 }

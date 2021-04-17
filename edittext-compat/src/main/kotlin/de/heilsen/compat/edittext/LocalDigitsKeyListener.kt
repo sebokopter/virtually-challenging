@@ -5,7 +5,6 @@ import android.os.Build
 import android.text.InputType
 import android.text.method.DigitsKeyListener
 import androidx.annotation.RequiresApi
-import androidx.core.os.ConfigurationCompat
 import java.util.*
 
 class LocalDigitsKeyListener : DigitsKeyListener {
@@ -28,7 +27,7 @@ class LocalDigitsKeyListener : DigitsKeyListener {
         fun localDigitsKeyListener(context: Context, decimal: Boolean): LocalDigitsKeyListener {
             return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 LocalDigitsKeyListener(
-                    ConfigurationCompat.getLocales(context.resources.configuration)[0],
+                    context.resources.configuration.localeCompat,
                     sign = false,
                     decimal = decimal
                 )

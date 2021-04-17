@@ -1,4 +1,4 @@
-package de.heilsen.virtuallychallenging.data.model
+package de.heilsen.virtuallychallenging.data
 
 import androidx.room.TypeConverter
 import java.time.Instant

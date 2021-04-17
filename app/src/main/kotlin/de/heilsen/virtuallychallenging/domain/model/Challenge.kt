@@ -1,6 +1,6 @@
 package de.heilsen.virtuallychallenging.domain.model
 
-typealias Distance = Float
+typealias Distance = Number
 
 val Int.km
     get() = toFloat()

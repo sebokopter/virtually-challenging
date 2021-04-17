@@ -1,3 +1,5 @@
 package de.heilsen.virtuallychallenging.profile
 
-data class WorkoutItem(val distance: Float, val date: String)
+import de.heilsen.virtuallychallenging.domain.model.Distance
+
+data class WorkoutItem(val distance: Distance, val date: String)

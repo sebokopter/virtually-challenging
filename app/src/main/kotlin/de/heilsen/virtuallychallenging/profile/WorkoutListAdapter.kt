@@ -24,7 +24,9 @@ class WorkoutListAdapter : ListAdapter<WorkoutItem, WorkoutViewHolder>(WorkoutIt
         }
 
         override fun areContentsTheSame(oldItem: WorkoutItem, newItem: WorkoutItem): Boolean {
-            return oldItem.date == newItem.date && oldItem.distance == newItem.distance
+            val sameDate = oldItem.date == newItem.date
+            val sameDistance = oldItem.distance.toFloat() == newItem.distance.toFloat()
+            return sameDate && sameDistance
         }
     }
 }
