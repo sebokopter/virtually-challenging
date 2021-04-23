@@ -18,6 +18,7 @@ android {
     defaultConfig {
         applicationId("de.heilsen.virtuallychallenging")
         minSdkVersion(16)
+        targetSdkVersion(30)
         versionCode(versionCode)
         versionName(project.version as String)
 
