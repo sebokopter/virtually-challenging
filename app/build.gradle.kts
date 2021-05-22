@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import java.util.*
 
 plugins {
@@ -87,13 +86,6 @@ android {
 
     sourceSets.all {
         java.srcDirs("src/$name/kotlin")
-    }
-
-    sourceSets.named("test") {
-        java.srcDirs("src/sharedTest/kotlin")
-        withConvention(KotlinSourceSet::class) {
-            kotlin.srcDirs("src/sharedTest/kotlin")
-        }
     }
 
     testOptions {
