@@ -18,7 +18,7 @@ class DashboardActivityTest {
 
     @get:Rule
     val activityTestRule = activityTestRule {
-        DashboardActivity { viewModelFactory(dashboardViewModel) }
+        DashboardActivity(viewModelFactory(dashboardViewModel))
     }
 
     @Test

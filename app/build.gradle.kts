@@ -128,6 +128,7 @@ dependencies {
     testImplementation("androidx.test.ext:junit-ktx:1.1.2")
     testImplementation("androidx.test:core-ktx:1.3.0")
     testImplementation("org.mockito:mockito-core:3.9.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
 
     androidTestImplementation("androidx.test:rules:1.3.0")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.2")
