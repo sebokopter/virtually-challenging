@@ -8,15 +8,20 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
 import de.heilsen.virtuallychallenging.R
 import de.heilsen.virtuallychallenging.profile.ProfileActivity
 import de.heilsen.virtuallychallenging.util.setProgressCompat
 import de.heilsen.virtuallychallenging.util.show
 
-class DashboardActivity : AppCompatActivity() {
 
-    private val viewModel: DashboardViewModel by viewModels()
+class DashboardActivity(viewModelFactoryProducer: (() -> ViewModelProvider.Factory)?) :
+    AppCompatActivity() {
+
+    constructor() : this(null)
+
+    private val viewModel: DashboardViewModel by viewModels(viewModelFactoryProducer)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

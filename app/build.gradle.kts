@@ -127,9 +127,15 @@ dependencies {
     testImplementation("org.robolectric:robolectric:4.5.1")
     testImplementation("androidx.test.ext:junit-ktx:1.1.2")
     testImplementation("androidx.test:core-ktx:1.3.0")
-    testImplementation("org.mockito:mockito-core:3.7.7")
+    testImplementation("org.mockito:mockito-core:3.9.0")
 
+    androidTestImplementation("androidx.test:rules:1.3.0")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
-    androidTestImplementation("org.mockito:mockito-android:3.7.7")
+    androidTestImplementation("com.agoda.kakao:kakao:2.4.0")
+    androidTestImplementation("org.mockito:mockito-core:3.9.0")
+    androidTestImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
+    androidTestImplementation("com.linkedin.dexmaker:dexmaker-mockito-inline:2.28.1") {
+        because("mockito-android can only subclass and therefore not mock/spy final classes")
+    }
 }
