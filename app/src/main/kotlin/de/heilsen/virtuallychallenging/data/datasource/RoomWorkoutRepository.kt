@@ -19,7 +19,7 @@ class RoomWorkoutRepository(private val workoutDao: WorkoutDao) : WorkoutReposit
 
     override suspend fun add(workout: Workout) {
         workoutDao.insert(
-            de.heilsen.virtuallychallenging.data.model.Workout(
+            de.heilsen.virtuallychallenging.data.model.WorkoutEntity(
                 workout.distance,
                 workout.date.atZone(ZoneId.systemDefault()).toInstant()
             )

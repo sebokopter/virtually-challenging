@@ -7,8 +7,8 @@ import androidx.room.Query
 @Dao
 interface ChallengeDao {
     @Query("SELECT * FROM challenge LIMIT 1")
-    fun get(): Challenge
+    fun get(): ChallengeEntity
 
     @Insert
-    fun insert(challenge: Challenge)
+    fun insert(challengeEntity: ChallengeEntity)
 }

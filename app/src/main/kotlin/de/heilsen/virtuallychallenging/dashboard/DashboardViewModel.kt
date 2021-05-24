@@ -9,16 +9,17 @@ import de.heilsen.virtuallychallenging.domain.LongestStreak
 import de.heilsen.virtuallychallenging.domain.model.Workout
 import de.heilsen.virtuallychallenging.domain.model.km
 import de.heilsen.virtuallychallenging.domain.model.sumDistance
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.time.Period
 
-class DashboardViewModel(private val workoutRepository: WorkoutRepository) : ViewModel() {
+class DashboardViewModel(
+    private val workoutRepository: WorkoutRepository,
+    private val longestStreak: LongestStreak = LongestStreak()
+) : ViewModel() {
 
-    private val longestStreak = LongestStreak()
-
-    fun dispatch(action: DashboardAction) = viewModelScope.launch(Dispatchers.IO) {
+    fun dispatch(action: DashboardAction) = viewModelScope.launch {
         when (action) {
             is DashboardAction.AddWorkout -> with(action.workout) {
                 workoutRepository.add(Workout(distance, date))
@@ -26,14 +27,21 @@ class DashboardViewModel(private val workoutRepository: WorkoutRepository) : Vie
         }
     }
 
-    fun model(): LiveData<DashboardModel> {
-        val challenge = 1000.km
-        return workoutRepository.workouts().map { workouts ->
+    val model: LiveData<DashboardModel> = modelFlow().asLiveData(viewModelScope.coroutineContext)
+
+    private fun modelFlow(): Flow<DashboardModel> {
+        val goal = 1000.km
+        return workoutRepository.workouts()
+            .map(toDashboardModel(goal))
+    }
+
+    private fun toDashboardModel(challenge: Float):
+            suspend (value: List<Workout>) -> DashboardModel =
+        { workouts ->
             val consecutiveDays = streak(workouts).days
             val distance = workouts.sumDistance()
             DashboardModel(distance, challenge, consecutiveDays, workouts.size)
-        }.asLiveData(viewModelScope.coroutineContext)
-    }
+        }
 
     private fun streak(workouts: List<Workout>): Period {
         val dates = workouts.map { it.date.toLocalDate() }

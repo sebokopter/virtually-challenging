@@ -54,7 +54,7 @@ class DashboardActivity(viewModelFactoryProducer: (ViewModelProvider.Factory)?) 
     }
 
     private fun observe(viewModel: DashboardViewModel) {
-        viewModel.model().observe(this@DashboardActivity, render())
+        viewModel.model.observe(this@DashboardActivity, render())
     }
 
     private fun render(): (DashboardModel) -> Unit = { state ->

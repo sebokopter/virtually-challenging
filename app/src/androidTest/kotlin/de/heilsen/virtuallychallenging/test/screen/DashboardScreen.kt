@@ -1,4 +1,4 @@
-package de.heilsen.virtuallychallenging.test
+package de.heilsen.virtuallychallenging.test.screen
 
 import com.agoda.kakao.screen.Screen
 import com.agoda.kakao.text.KTextView

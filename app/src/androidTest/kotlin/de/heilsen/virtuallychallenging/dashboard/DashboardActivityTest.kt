@@ -3,7 +3,7 @@ package de.heilsen.virtuallychallenging.dashboard
 import androidx.lifecycle.MutableLiveData
 import com.agoda.kakao.screen.Screen.Companion.onScreen
 import de.heilsen.virtuallychallenging.domain.model.km
-import de.heilsen.virtuallychallenging.test.DashboardScreen
+import de.heilsen.virtuallychallenging.test.screen.DashboardScreen
 import de.heilsen.virtuallychallenging.util.activityTestRule
 import de.heilsen.virtuallychallenging.util.viewModelFactory
 import org.junit.Rule
@@ -13,7 +13,7 @@ import org.mockito.kotlin.mock
 
 class DashboardActivityTest {
     private val dashboardViewModel = mock<DashboardViewModel> {
-        on { model() } doReturn MutableLiveData(DashboardModel(123.km, 1000.km, 12, 3))
+        on { model } doReturn MutableLiveData(DashboardModel(123.km, 1000.km, 12, 3))
     }
 
     @get:Rule
@@ -31,7 +31,7 @@ class DashboardActivityTest {
     @Test
     fun showsProgressText() {
         onScreen<DashboardScreen> {
-            progressText.hasText("123.0 km")
+            progressText.hasText(String.format("%1$.1f km", 123.km))
         }
     }
 

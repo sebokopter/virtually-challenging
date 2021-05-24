@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WorkoutDao {
     @Query("SELECT * FROM workout")
-    fun getAll(): Flow<List<Workout>>
+    fun getAll(): Flow<List<WorkoutEntity>>
 
     @Insert
-    suspend fun insert(workout: Workout)
+    suspend fun insert(workoutEntity: WorkoutEntity)
 }

@@ -1,7 +1,7 @@
 package de.heilsen.virtuallychallenging.data.datasource
 
-import de.heilsen.virtuallychallenging.data.model.Challenge
 import de.heilsen.virtuallychallenging.data.model.ChallengeDao
+import de.heilsen.virtuallychallenging.data.model.ChallengeEntity
 
 class RoomChallengeProvider(private val challengeDao: ChallengeDao) : ChallengeProvider {
     override fun get(): de.heilsen.virtuallychallenging.domain.model.Challenge {
@@ -10,7 +10,7 @@ class RoomChallengeProvider(private val challengeDao: ChallengeDao) : ChallengeP
     }
 
     override fun set(challenge: de.heilsen.virtuallychallenging.domain.model.Challenge) {
-        val challengeData = Challenge(challenge.goal)
+        val challengeData = ChallengeEntity(challenge.goal)
         challengeDao.insert(challengeData)
     }
 }
