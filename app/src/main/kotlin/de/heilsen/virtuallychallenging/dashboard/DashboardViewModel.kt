@@ -1,14 +1,18 @@
 package de.heilsen.virtuallychallenging.dashboard
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import de.heilsen.virtuallychallenging.data.DashboardDatabase
+import de.heilsen.virtuallychallenging.data.datasource.RoomWorkoutRepository
 import de.heilsen.virtuallychallenging.data.datasource.WorkoutRepository
 import de.heilsen.virtuallychallenging.domain.LongestStreak
 import de.heilsen.virtuallychallenging.domain.model.Workout
 import de.heilsen.virtuallychallenging.domain.model.km
 import de.heilsen.virtuallychallenging.domain.model.sumDistance
+import de.heilsen.virtuallychallenging.util.ViewModelFactory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -48,4 +52,9 @@ class DashboardViewModel(
         return longestStreak.current(dates)
     }
 
+    class Factory(private val application: Application) : ViewModelFactory<DashboardViewModel>({
+        val workoutDao = DashboardDatabase(application.applicationContext).workoutDao()
+        val workoutRepository = RoomWorkoutRepository(workoutDao)
+        DashboardViewModel(workoutRepository)
+    })
 }

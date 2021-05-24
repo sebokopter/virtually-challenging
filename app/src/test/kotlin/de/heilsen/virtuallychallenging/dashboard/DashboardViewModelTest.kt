@@ -115,7 +115,6 @@ class DashboardViewModelTest {
         }
     }
 
-
     class InMemoryWorkoutRepository : WorkoutRepository {
         var workouts = mutableListOf<Workout>()
 

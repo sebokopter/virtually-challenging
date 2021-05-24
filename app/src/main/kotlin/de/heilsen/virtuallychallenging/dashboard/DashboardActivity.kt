@@ -8,33 +8,20 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
 import de.heilsen.virtuallychallenging.R
-import de.heilsen.virtuallychallenging.data.DashboardDatabase
-import de.heilsen.virtuallychallenging.data.datasource.RoomWorkoutRepository
 import de.heilsen.virtuallychallenging.profile.ProfileActivity
 import de.heilsen.virtuallychallenging.util.setProgressCompat
 import de.heilsen.virtuallychallenging.util.show
 
-class DashboardActivity(viewModelFactoryProducer: (ViewModelProvider.Factory)?) :
+class DashboardActivity(interceptingViewModelFactory: ViewModelProvider.Factory?) :
     AppCompatActivity() {
 
     constructor() : this(null)
 
-    @Suppress("UNCHECKED_CAST")
-    private val defaultViewModelFactory: ViewModelProvider.Factory =
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val workoutDao = DashboardDatabase(application.applicationContext).workoutDao()
-                val workoutRepository = RoomWorkoutRepository(workoutDao)
-                return DashboardViewModel(workoutRepository) as T
-            }
-        }
-
     private val viewModel: DashboardViewModel by viewModels {
-        viewModelFactoryProducer ?: defaultViewModelFactory
+        interceptingViewModelFactory ?: DashboardViewModel.Factory(application)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
