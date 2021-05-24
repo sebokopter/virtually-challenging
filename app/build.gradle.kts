@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import java.util.*
 
 plugins {
@@ -81,11 +82,24 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8" // Jetpack ktx extensions require Java 8
-        useIR = true //opt in to new compiler
     }
 
     sourceSets.all {
         java.srcDirs("src/$name/kotlin")
+    }
+
+    sourceSets.named("test") {
+        java.srcDirs("src/sharedTest/kotlin")
+        withConvention(KotlinSourceSet::class) {
+            kotlin.srcDirs("src/sharedTest/kotlin")
+        }
+    }
+
+    sourceSets.named("androidTest") {
+        java.srcDirs("src/sharedTest/kotlin")
+        withConvention(KotlinSourceSet::class) {
+            kotlin.srcDirs("src/sharedTest/kotlin")
+        }
     }
 
     testOptions {
@@ -96,11 +110,15 @@ android {
 
     buildFeatures {
         aidl = false
-        renderScript = false
         buildConfig = false
-        viewBinding = false
+        compose = false
+        dataBinding = false
+        mlModelBinding = false
+        prefab = false
+        renderScript = false
         resValues = false
         shaders = false
+        viewBinding = false
     }
 }
 
