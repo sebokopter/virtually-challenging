@@ -157,10 +157,14 @@ dependencies {
     androidTestImplementation("org.hamcrest:hamcrest-library:1.3")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+    androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
     androidTestImplementation("com.agoda.kakao:kakao:2.4.0")
     androidTestImplementation("org.mockito:mockito-core:3.9.0")
     androidTestImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
     androidTestImplementation("com.linkedin.dexmaker:dexmaker-mockito-inline:2.28.1") {
         because("mockito-android can only subclass and therefore not mock/spy final classes")
+    }
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0") {
+        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
     }
 }

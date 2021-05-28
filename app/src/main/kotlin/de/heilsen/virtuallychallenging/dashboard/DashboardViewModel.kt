@@ -16,11 +16,12 @@ import de.heilsen.virtuallychallenging.util.ViewModelFactory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.time.Clock
 import java.time.Period
 
 class DashboardViewModel(
     private val workoutRepository: WorkoutRepository,
-    private val longestStreak: LongestStreak = LongestStreak()
+    private val longestStreak: LongestStreak = LongestStreak(Clock.systemDefaultZone())
 ) : ViewModel() {
 
     fun dispatch(action: DashboardAction) = viewModelScope.launch {

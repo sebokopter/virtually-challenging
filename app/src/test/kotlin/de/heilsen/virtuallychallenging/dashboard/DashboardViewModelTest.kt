@@ -1,14 +1,11 @@
 package de.heilsen.virtuallychallenging.dashboard
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import de.heilsen.virtuallychallenging.data.datasource.WorkoutRepository
 import de.heilsen.virtuallychallenging.domain.LongestStreak
 import de.heilsen.virtuallychallenging.domain.model.Workout
 import de.heilsen.virtuallychallenging.domain.model.km
 import de.heilsen.virtuallychallenging.test.util.observeForTesting
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
@@ -31,7 +28,7 @@ class DashboardViewModelTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val inMemoryRepository = InMemoryWorkoutRepository()
+    private val inMemoryRepository = InMemoryWorkoutRepository
 
     private val workout = Workout(distance = 123.km, date = LocalDateTime.of(2021, 5, 1, 12, 34))
     private val yesterdaysWorkout =
@@ -115,13 +112,4 @@ class DashboardViewModelTest {
         }
     }
 
-    class InMemoryWorkoutRepository : WorkoutRepository {
-        var workouts = mutableListOf<Workout>()
-
-        override fun workouts(): Flow<List<Workout>> = flowOf(workouts)
-
-        override suspend fun add(workout: Workout) {
-            workouts.add(workout)
-        }
-    }
 }
