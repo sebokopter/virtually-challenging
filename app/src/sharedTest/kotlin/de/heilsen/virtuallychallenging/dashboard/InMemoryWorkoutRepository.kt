@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
 object InMemoryWorkoutRepository : WorkoutRepository {
-    var workoutFlow = MutableStateFlow(emptyList<Workout>())
+    private var workoutFlow = MutableStateFlow(emptyList<Workout>())
 
     override fun workouts(): Flow<List<Workout>> = workoutFlow
 

@@ -1,16 +1,18 @@
 package de.heilsen.virtuallychallenging.dashboard
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.viewModelScope
 import de.heilsen.virtuallychallenging.domain.LongestStreak
 import de.heilsen.virtuallychallenging.domain.model.Workout
 import de.heilsen.virtuallychallenging.domain.model.km
 import de.heilsen.virtuallychallenging.test.util.observeForTesting
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.contains
 import org.jetbrains.kotlin.coroutines.test.junit4.MainCoroutineRule
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -49,11 +51,22 @@ class DashboardViewModelTest {
         )
     }
 
+    @After
+    fun tearDown() {
+        viewModel.viewModelScope.cancel()
+        inMemoryRepository.clear()
+    }
+
     @Test
     fun dispatchAddWorkoutAction() = runBlockingTest {
         viewModel.dispatch(DashboardAction.AddWorkout(workout))
 
-        assertThat("", inMemoryRepository.workouts, contains(workout))
+        viewModel.model.observeForTesting {
+            assertThat(
+                viewModel.model.value,
+                equalTo(DashboardModel(workout.distance.toFloat(), 1000.km, 1, 1))
+            )
+        }
     }
 
     @Test
