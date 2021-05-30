@@ -59,6 +59,7 @@ android {
         register("releasePlaystore") {
             initWith(getByName("release"))
             signingConfig = signingConfigs.named("upload").get()
+            setMatchingFallbacks("release")
         }
         getByName("debug") {
             isMinifyEnabled = false
