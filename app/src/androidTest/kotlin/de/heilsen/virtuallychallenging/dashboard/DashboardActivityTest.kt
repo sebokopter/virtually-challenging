@@ -9,6 +9,7 @@ import de.heilsen.virtuallychallenging.test.screen.DashboardScreen
 import de.heilsen.virtuallychallenging.util.activityTestRule
 import de.heilsen.virtuallychallenging.util.viewModelFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
@@ -27,13 +28,17 @@ class DashboardActivityTest {
         Instant.from(currentTime.atZone(ZoneId.systemDefault())),
         ZoneId.systemDefault()
     )
-    private val dashboardViewModel = DashboardViewModel(workoutRepository, LongestStreak(clock))
+    private val dashboardViewModel = DashboardViewModel(
+        workoutRepository,
+        LongestStreak(clock),
+        TestCoroutineDispatcher()
+    )
 
     @Before
     fun setUp() = runBlockingTest {
-        workoutRepository.add(Workout(3.km, LocalDateTime.of(2021, 5, 1, 2, 3)))
-        workoutRepository.add(Workout(20.km, LocalDateTime.of(2021, 5, 3, 4, 5)))
-        workoutRepository.add(Workout(100.km, LocalDateTime.of(2021, 5, 4, 5, 6)))
+        workoutRepository.add(Workout(3.km, LocalDateTime.of(2021, 5, 1, 2, 3), 1))
+        workoutRepository.add(Workout(20.km, LocalDateTime.of(2021, 5, 3, 4, 5), 2))
+        workoutRepository.add(Workout(100.km, LocalDateTime.of(2021, 5, 4, 5, 6), 3))
     }
 
     @After
@@ -78,11 +83,11 @@ class DashboardActivityTest {
     }
 
     @Test
-    fun updateWorkouts() {
+    fun updateWorkouts() = runBlockingTest {
         onScreen<DashboardScreen> {
             totalWorkoutsText.hasText("3")
         }
-        dashboardViewModel.dispatch(DashboardAction.AddWorkout(Workout(234.km)))
+        dashboardViewModel.dispatch(DashboardAction.AddWorkout(Workout(234.km, id = 4)))
         onScreen<DashboardScreen> {
             totalWorkoutsText.hasText("4")
         }

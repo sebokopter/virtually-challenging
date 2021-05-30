@@ -8,8 +8,7 @@ import java.time.Instant
 @Entity(tableName = "Workout")
 data class WorkoutEntity(
     val distance: Distance,
-    val date: Instant
-) {
+    val date: Instant,
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
-}
+)

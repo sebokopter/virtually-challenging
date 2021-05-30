@@ -13,6 +13,8 @@ import de.heilsen.virtuallychallenging.domain.model.Workout
 import de.heilsen.virtuallychallenging.domain.model.km
 import de.heilsen.virtuallychallenging.domain.model.sumDistance
 import de.heilsen.virtuallychallenging.util.ViewModelFactory
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -21,10 +23,11 @@ import java.time.Period
 
 class DashboardViewModel(
     private val workoutRepository: WorkoutRepository,
-    private val longestStreak: LongestStreak = LongestStreak(Clock.systemDefaultZone())
+    private val longestStreak: LongestStreak = LongestStreak(Clock.systemDefaultZone()),
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
-    fun dispatch(action: DashboardAction) = viewModelScope.launch {
+    fun dispatch(action: DashboardAction) = viewModelScope.launch(coroutineDispatcher) {
         when (action) {
             is DashboardAction.AddWorkout -> with(action.workout) {
                 workoutRepository.add(Workout(distance, date))
@@ -41,14 +44,14 @@ class DashboardViewModel(
     }
 
     private fun toDashboardModel(challenge: Float):
-            suspend (value: List<Workout>) -> DashboardModel =
+            suspend (value: Collection<Workout>) -> DashboardModel =
         { workouts ->
             val consecutiveDays = streak(workouts).days
             val distance = workouts.sumDistance()
             DashboardModel(distance, challenge, consecutiveDays, workouts.size)
         }
 
-    private fun streak(workouts: List<Workout>): Period {
+    private fun streak(workouts: Iterable<Workout>): Period {
         val dates = workouts.map { it.date.toLocalDate() }
         return longestStreak.current(dates)
     }
@@ -56,6 +59,6 @@ class DashboardViewModel(
     class Factory(private val application: Application) : ViewModelFactory<DashboardViewModel>({
         val workoutDao = DashboardDatabase(application.applicationContext).workoutDao()
         val workoutRepository = RoomWorkoutRepository(workoutDao)
-        DashboardViewModel(workoutRepository)
+        DashboardViewModel(workoutRepository, coroutineDispatcher = Dispatchers.IO)
     })
 }

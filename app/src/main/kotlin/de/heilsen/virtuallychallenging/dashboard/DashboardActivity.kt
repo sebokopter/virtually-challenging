@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
 import de.heilsen.virtuallychallenging.R
-import de.heilsen.virtuallychallenging.profile.ProfileActivity
+import de.heilsen.virtuallychallenging.list.WorkoutListActivity
 import de.heilsen.virtuallychallenging.util.setProgressCompat
 import de.heilsen.virtuallychallenging.util.show
 
@@ -80,7 +80,7 @@ class DashboardActivity(interceptingViewModelFactory: ViewModelProvider.Factory?
     }
 
     private fun showProfile() {
-        val intent = Intent(this, ProfileActivity::class.java)
+        val intent = Intent(this, WorkoutListActivity::class.java)
         startActivity(intent)
     }
 }

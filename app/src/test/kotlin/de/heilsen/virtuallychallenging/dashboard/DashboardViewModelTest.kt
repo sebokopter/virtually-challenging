@@ -8,6 +8,7 @@ import de.heilsen.virtuallychallenging.domain.model.km
 import de.heilsen.virtuallychallenging.test.util.observeForTesting
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
@@ -32,7 +33,11 @@ class DashboardViewModelTest {
 
     private val inMemoryRepository = InMemoryWorkoutRepository
 
-    private val workout = Workout(distance = 123.km, date = LocalDateTime.of(2021, 5, 1, 12, 34))
+    private val workout = Workout(
+        distance = 123.km,
+        date = LocalDateTime.of(2021, 5, 1, 12, 34),
+        id = 0
+    )
     private val yesterdaysWorkout =
         Workout(distance = 123.km, date = LocalDateTime.of(2021, 4, 30, 12, 34))
     private val dayBeforeYesterdaysWorkout =
@@ -47,7 +52,8 @@ class DashboardViewModelTest {
     fun setUp() {
         viewModel = DashboardViewModel(
             inMemoryRepository,
-            LongestStreak(Clock.fixed(currentInstant, ZoneId.systemDefault()))
+            LongestStreak(Clock.fixed(currentInstant, ZoneId.systemDefault())),
+            TestCoroutineDispatcher()
         )
     }
 
@@ -113,7 +119,7 @@ class DashboardViewModelTest {
     }
 
     @Test
-    fun addMultipleWorkouts() {
+    fun addMultipleWorkouts() = runBlockingTest {
         viewModel.dispatch(DashboardAction.AddWorkout(workout))
         viewModel.dispatch(DashboardAction.AddWorkout(yesterdaysWorkout))
         viewModel.dispatch(DashboardAction.AddWorkout(dayBeforeYesterdaysWorkout))

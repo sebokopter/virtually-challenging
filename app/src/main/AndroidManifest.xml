@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".profile.ProfileActivity"
+            android:name=".list.WorkoutListActivity"
             android:parentActivityName=".dashboard.DashboardActivity"
             />
     </application>
