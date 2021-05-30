@@ -9,7 +9,7 @@ version = "0.1"
 android {
     compileSdkVersion(30)
     defaultConfig {
-        minSdkVersion(3)
+        minSdkVersion(4)
     }
 
     sourceSets.all {
@@ -23,5 +23,5 @@ repositories {
 }
 
 dependencies {
-    implementation("androidx.core:core:1.3.2")
+    implementation("androidx.core:core:1.5.0")
 }
