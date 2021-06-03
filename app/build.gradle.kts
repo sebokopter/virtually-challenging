@@ -8,8 +8,8 @@ plugins {
 }
 
 group = "de.heilsen.virtuallychallenging"
-version = "0.5"
-val versionCodeInt = 5
+version = "0.6"
+val versionCodeInt = 6
 
 android {
     compileSdkVersion(30)
