@@ -14,6 +14,7 @@ import de.heilsen.virtuallychallenging.R
 import de.heilsen.virtuallychallenging.list.WorkoutListActivity
 import de.heilsen.virtuallychallenging.util.setProgressCompat
 import de.heilsen.virtuallychallenging.util.show
+import de.heilsen.virtuallychallenging.workout.WorkoutFormFragment
 
 class DashboardActivity(interceptingViewModelFactory: ViewModelProvider.Factory?) :
     AppCompatActivity() {

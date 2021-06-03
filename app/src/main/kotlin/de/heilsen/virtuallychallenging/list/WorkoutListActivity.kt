@@ -1,58 +1,83 @@
 package de.heilsen.virtuallychallenging.list
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.appcompat.view.ActionMode
 import androidx.recyclerview.widget.RecyclerView
 import de.heilsen.virtuallychallenging.R
-import de.heilsen.virtuallychallenging.dashboard.DashboardAction
 
 class WorkoutListActivity : AppCompatActivity() {
+    private var actionMode: ActionMode? = null
     private val viewModel: WorkoutListViewModel by viewModels()
-    private val listAdapter = WorkoutListAdapter()
+    private val listAdapter = WorkoutListAdapter({ workout ->
+        viewModel.dispatch(WorkoutListAction.ClickWorkout(workout))
+    }, { workout ->
+        viewModel.dispatch(WorkoutListAction.LongClickWorkout(workout))
+    })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        setSupportActionBar(findViewById(R.id.toolbar))
         setupActionBar()
+        stopSupportActionMode()
         setupRecyclerView()
 
         observe(viewModel)
-        //TODO: setupDispatchers()
     }
 
     private fun observe(viewModel: WorkoutListViewModel) {
-        viewModel.model().observe(this) {
-            val list = it.workouts
-            listAdapter.submitList(list)
+        viewModel.model.observe(this) { model ->
+            listAdapter.submitList(model.workouts)
+            if (model.isSelectionModeEnabled) {
+                startSupportActionMode()
+            } else {
+                stopSupportActionMode()
+            }
+        }
+    }
+
+    private fun startSupportActionMode() {
+        if (actionMode == null) {
+            actionMode = startSupportActionMode(WorkoutListActionModeCallback(this, viewModel))
+        }
+    }
+
+    private fun stopSupportActionMode() {
+        if (actionMode != null) {
+            actionMode?.finish()
+            actionMode = null
         }
     }
 
     private fun setupRecyclerView() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        val helper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
-            0,
-            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        ) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ) = false
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
-                val workout = listAdapter.currentList[position]
-                viewModel.dispatch(DashboardAction.DeleteWorkout(workout))
-            }
-        })
         recyclerView.adapter = listAdapter
-        helper.attachToRecyclerView(recyclerView)
+        recyclerView.onSwipe { position ->
+            val workout = listAdapter.currentList[position]
+            viewModel.dispatch(WorkoutListAction.DeleteWorkout(workout))
+        }
     }
 
     private fun setupActionBar() {
+        setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.list_options_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.option_select -> {
+                viewModel.dispatch(WorkoutListAction.StartSelection)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

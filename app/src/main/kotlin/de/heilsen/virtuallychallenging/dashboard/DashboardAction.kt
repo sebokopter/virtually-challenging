@@ -1,8 +1,7 @@
 package de.heilsen.virtuallychallenging.dashboard
 
-import de.heilsen.virtuallychallenging.domain.model.Workout
+import de.heilsen.virtuallychallenging.workout.WorkoutModel
 
 sealed class DashboardAction {
-    class AddWorkout(val workout: Workout) : DashboardAction()
-    class DeleteWorkout(val workout: Workout) : DashboardAction()
+    class AddWorkout(val workout: WorkoutModel) : DashboardAction()
 }

@@ -6,5 +6,8 @@
     <string name="date">Date</string>
     <string name="distance_missing">No distance provided</string>
     <string name="profile">Profile</string>
-    <string name="totalWorkouts">Total Workouts</string>
+    <string name="total_workouts">Total Workouts</string>
+    <string name="action_mode_list">Select Workout(s) …</string>
+    <string name="delete">Delete</string>
+    <string name="select_option">Select …</string>
 </resources>

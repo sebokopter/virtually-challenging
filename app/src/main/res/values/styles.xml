@@ -6,4 +6,8 @@
         </item>
     </style>
 
+    <style name="Widget.VirtuallyChallenging.ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="background">?colorPrimary</item>
+    </style>
+
 </resources>

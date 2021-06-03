@@ -29,9 +29,7 @@ class DashboardViewModel(
 
     fun dispatch(action: DashboardAction) = viewModelScope.launch(coroutineDispatcher) {
         when (action) {
-            is DashboardAction.AddWorkout -> with(action.workout) {
-                workoutRepository.add(Workout(distance, date))
-            }
+            is DashboardAction.AddWorkout -> workoutRepository.add(action.workout.toDomain())
         }
     }
 

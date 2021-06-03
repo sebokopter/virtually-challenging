@@ -5,13 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import de.heilsen.virtuallychallenging.R
-import de.heilsen.virtuallychallenging.domain.model.Workout
+import de.heilsen.virtuallychallenging.workout.WorkoutModel
 
-class WorkoutListAdapter : ListAdapter<Workout, WorkoutViewHolder>(WorkoutItemCallback) {
+class WorkoutListAdapter(
+    private val onItemClick: (WorkoutModel) -> Unit,
+    private val onItemLongClick: (WorkoutModel) -> Unit
+) :
+    ListAdapter<WorkoutModel, WorkoutViewHolder>(WorkoutItemCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_workout, parent, false)
-        return WorkoutViewHolder(view)
+        return WorkoutViewHolder(view, onItemClick, onItemLongClick)
     }
 
     override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int) {
@@ -19,12 +23,12 @@ class WorkoutListAdapter : ListAdapter<Workout, WorkoutViewHolder>(WorkoutItemCa
         holder.bind(workoutItem)
     }
 
-    object WorkoutItemCallback : DiffUtil.ItemCallback<Workout>() {
-        override fun areItemsTheSame(oldItem: Workout, newItem: Workout): Boolean {
+    object WorkoutItemCallback : DiffUtil.ItemCallback<WorkoutModel>() {
+        override fun areItemsTheSame(oldItem: WorkoutModel, newItem: WorkoutModel): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Workout, newItem: Workout): Boolean {
+        override fun areContentsTheSame(oldItem: WorkoutModel, newItem: WorkoutModel): Boolean {
             val sameDate = oldItem.date == newItem.date
             val sameDistance = oldItem.distance.toFloat() == newItem.distance.toFloat()
             return sameDate && sameDistance

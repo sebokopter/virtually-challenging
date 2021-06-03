@@ -11,6 +11,13 @@
         <item name="toolbarStyle">
             @style/Widget.MaterialComponents.Toolbar.PrimarySurface.ThemeOverlayFix
         </item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeStyle">@style/Widget.VirtuallyChallenging.ActionMode</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_close_24</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
+        <item name="android:activatedBackgroundIndicator">
+            @drawable/activated_selectable_background_material
+        </item>
     </style>
 
 </resources>

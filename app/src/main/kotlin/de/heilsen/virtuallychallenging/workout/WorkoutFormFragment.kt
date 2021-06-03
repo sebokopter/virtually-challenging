@@ -1,4 +1,4 @@
-package de.heilsen.virtuallychallenging.dashboard
+package de.heilsen.virtuallychallenging.workout
 
 import android.content.Context
 import android.os.Bundle
@@ -17,7 +17,8 @@ import com.google.android.material.textfield.TextInputLayout
 import de.heilsen.compat.edittext.EditTextCompat.fixDigitsKeyListenerLocale
 import de.heilsen.compat.edittext.localeCompat
 import de.heilsen.virtuallychallenging.R
-import de.heilsen.virtuallychallenging.domain.model.Workout
+import de.heilsen.virtuallychallenging.dashboard.DashboardAction
+import de.heilsen.virtuallychallenging.dashboard.DashboardViewModel
 import de.heilsen.virtuallychallenging.util.doAfterFocus
 import de.heilsen.virtuallychallenging.util.show
 import java.text.DecimalFormat
@@ -98,7 +99,7 @@ class WorkoutFormFragment : BottomSheetDialogFragment() {
             return
         }
         val localDate = dateField.text.asLocalDateTime()
-        viewModel.dispatch(DashboardAction.AddWorkout(Workout(distance, localDate)))
+        viewModel.dispatch(DashboardAction.AddWorkout(WorkoutModel(distance, localDate)))
         dismiss()
     }
 }

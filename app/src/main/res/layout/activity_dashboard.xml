@@ -127,7 +127,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="@string/totalWorkouts"
+                android:text="@string/total_workouts"
                 android:textAlignment="center"
                 app:layout_constraintTop_toBottomOf="@id/totalWorkouts"
                 />
